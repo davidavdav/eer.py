@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-## eer.py.  Thin wrapper around PYLLR.py to make it easy to just compute the equal error rate
+## eer.py.  Thin wrapper around llreval.py to make it easy to just compute the equal error rate
 ## using the convex hull ROC interpretation.
 
 ## (c) 2023 David A. van Leeuwen
@@ -9,7 +9,7 @@ from typing import List, Union
 
 import numpy as np
 
-from pyllr.pav_rocch import PAV, ROCCH
+from llreval.pav_rocch import PAV, ROCCH
 
 def _eer(scores: np.ndarray, labels: np.ndarray):
     """Compute the EER, in the convex hull ROC interpretation, for numeric scores and labels"""
