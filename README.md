@@ -11,14 +11,21 @@ in the ROC convex hull interpretation, which is consistent and meaningful, see [
 ## Installation
 
 ```sh
-pip install wer
+pip install eer
 ```
 
 ## Usage
 
-Collect your classifier's (floating point) scores in a `numpy` array.  Prepare a parallel array with values `0` for the class related to lower scores, and `1` for the class related to higher scores.  Then call `eer.eer(scores, labels)`.
+### `eer(scores, labels)`
 
-Example:
+ - Collect your classifier's (floating point) scores in a `numpy` array.
+ - Prepare a parallel array with values `0` for the class related to lower scores, and `1` for the class related to higher scores.
+
+### `eer_tnt(target_scores, nontarget_scores)`
+
+ - Collect your classifiers scores in separate `numpy` arrays, one for the positive class (`target_scores`) and one for the negative class (`nontarget_scores`)
+
+### Example
 
 Simulate [calibrated scores](https://www.isca-speech.org/archive/interspeech_2013/leeuwen13_interspeech.html) for a binary classifier, and compute the equal error rate.
 ```python

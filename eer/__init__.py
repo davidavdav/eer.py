@@ -12,7 +12,11 @@ import numpy as np
 from llreval.pav_rocch import PAV, ROCCH
 
 def _eer(scores: np.ndarray, labels: np.ndarray):
-    """Compute the EER, in the convex hull ROC interpretation, for numeric scores and labels"""
+    """
+    Compute the EER, in the convex hull ROC interpretation, for numeric ndarrays `scores` and `labels`
+
+    We use `llreval` for this (formerly known as `PYLLR`)
+    """
     pav = PAV(scores, labels)
     rocch = ROCCH(pav)
     eer = rocch.EER()
@@ -24,11 +28,14 @@ def eer(scores: Union[np.ndarray, List[float]], labels: Union[np.ndarray, List[i
 
     This computes the ROC convex hull interpretation of the EER.
 
-    Positive labels should be 1, and negative scores should be 0.
+    Positive labels should be 1 (or True), and negative labels should be 0 (or False).
 
-    :param scores: a list of prediction float values, or numpy array
-    :param labels: a list of class integer values (either 0 or 1)
-    :return: a float value containing the equal error rate
+    Args:
+        scores (Union[np.ndarray, List[float]]): a list of prediction float values, or numpy array
+        labels Union[np.ndarray, List[int]]): a list of integer or bool values, or numpy array
+
+    Returns:
+        float: the equal error rate
     """
     if isinstance(scores, list):
         scores = np.asarray(scores, dtype=np.float64)
@@ -47,7 +54,7 @@ def eer(scores: Union[np.ndarray, List[float]], labels: Union[np.ndarray, List[i
     return _eer(scores, labels)
 
 def eer_tnt(target_scores: Union[np.ndarray, List[float]], nontarget_scores: Union[np.ndarray, List[float]]) -> float:
-    """Calculate the equal error rate for a list of target and a list of nontarget scores.
+    """Calculate the equal error rate for a list of target and a list of non-target scores.
 
     This computes the ROC convex hull interpretation of the EER.
 
@@ -56,7 +63,7 @@ def eer_tnt(target_scores: Union[np.ndarray, List[float]], nontarget_scores: Uni
         nontarget_scores (Union[np.ndarray, List[float]]): a list or ndarray of the non-target scores, tending towards lower values
 
     Returns:
-        float: a float value containing the equal error rate
+        float: the equal error rate
     """
     if isinstance(target_scores, list):
         target_scores = np.asarray(target_scores, dtype=np.float64)
